@@ -1,0 +1,401 @@
+{
+    "name": "@noel/opentofu-vscode",
+    "description": "🐻‍❄️🫖 Visual Studio Code extension to easily interop between Terraform and OpenTofu",
+    "version": "0.1.0",
+    "displayName": "OpenTofu / Terraform for Visual Studio Code",
+    "publisher": "auguwu",
+    "type": "module",
+    "private": true,
+    "author": "Noel Towa <cutie@floofy.dev>",
+    "repository": "https://github.com/auguwu/opentofu-vscode",
+    "bugs": "https://github.com/auguwu/opentofu-vscode/issues",
+    "license": "GPL-3.0-only",
+    "main": "out/extension.js",
+    "browser": "out/extension.web.js",
+    "categories": [
+        "Formatters",
+        "Programming Languages"
+    ],
+    "keywords": [
+        "terraform",
+        "opentofu",
+        "hcl"
+    ],
+    "engines": {
+        "vscode": "^1.80.x"
+    },
+    "activationEvents": [
+        "workspaceContains:**/*.tf",
+        "workspaceContains:**/*.tfvars"
+    ],
+    "contributes": {
+        "languages": [
+            {
+                "id": "terraform",
+                "aliases": [
+                    "OpenTofu",
+                    "opentofu",
+                    "tofu",
+                    "hcl"
+                ],
+                "extensions": [
+                    ".tf"
+                ],
+                "configuration": "./assets/language-configuration.json"
+            },
+            {
+                "id": "terraform-vars",
+                "extensions": [
+                    ".tfvars"
+                ],
+                "configuration": "./assets/language-configuration.json"
+            },
+            {
+                "id": "terraform-stack",
+                "aliases": [
+                    "Terraform Stack"
+                ],
+                "extensions": [
+                    ".tfstack.hcl"
+                ],
+                "configuration": "./assets/language-configuration.json"
+            },
+            {
+                "id": "terraform-deploy",
+                "aliases": [
+                    "Terraform Deployment"
+                ],
+                "extensions": [
+                    ".tfdeploy.hcl"
+                ],
+                "configuration": "./assets/language-configuration.json"
+            },
+            {
+                "id": "terraform-test",
+                "aliases": [
+                    "Terraform Test"
+                ],
+                "extensions": [
+                    ".tftest.hcl"
+                ],
+                "configuration": "./assets/language-configuration.json"
+            },
+            {
+                "id": "terraform-mock",
+                "aliases": [
+                    "Terraform Mock"
+                ],
+                "extensions": [
+                    ".tfmock.hcl"
+                ],
+                "configuration": "./assets/language-configuration.json"
+            },
+            {
+                "id": "json",
+                "extensions": [
+                    ".tfstate"
+                ]
+            }
+        ],
+        "grammars": [
+            {
+                "language": "terraform",
+                "scopeName": "source.hcl.terraform",
+                "path": "./assets/syntaxes/terraform.tmGrammar.json"
+            },
+            {
+                "language": "terraform-vars",
+                "scopeName": "source.hcl.terraform",
+                "path": "./assets/syntaxes/terraform.tmGrammar.json"
+            },
+            {
+                "language": "terraform-stack",
+                "scopeName": "source.hcl.terraform",
+                "path": "./assets/syntaxes/terraform.tmGrammar.json"
+            },
+            {
+                "language": "terraform-deploy",
+                "scopeName": "source.hcl.terraform",
+                "path": "./assets/syntaxes/terraform.tmGrammar.json"
+            },
+            {
+                "language": "terraform-test",
+                "scopeName": "source.hcl.terraform",
+                "path": "./assets/syntaxes/terraform.tmGrammar.json"
+            },
+            {
+                "language": "terraform-mock",
+                "scopeName": "source.hcl.terraform",
+                "path": "./assets/syntaxes/terraform.tmGrammar.json"
+            }
+        ],
+        "semanticTokenTypes": [
+            {
+                "id": "hcl-attrName",
+                "superType": "property",
+                "description": "Attribute name"
+            },
+            {
+                "id": "hcl-blockType",
+                "superType": "type",
+                "description": "Block type"
+            },
+            {
+                "id": "hcl-blockLabel",
+                "superType": "enumMember",
+                "description": "Block label"
+            },
+            {
+                "id": "hcl-bool",
+                "superType": "keyword",
+                "description": "Boolean"
+            },
+            {
+                "id": "hcl-string",
+                "superType": "string",
+                "description": "String"
+            },
+            {
+                "id": "hcl-number",
+                "superType": "number",
+                "description": "Number"
+            },
+            {
+                "id": "hcl-objectKey",
+                "superType": "parameter",
+                "description": "Object key"
+            },
+            {
+                "id": "hcl-mapKey",
+                "superType": "parameter",
+                "description": "Map key"
+            },
+            {
+                "id": "hcl-keyword",
+                "superType": "variable",
+                "description": "Keyword"
+            },
+            {
+                "id": "hcl-referenceStep",
+                "superType": "variable",
+                "description": "Reference step"
+            },
+            {
+                "id": "hcl-typeComplex",
+                "superType": "keyword",
+                "description": "Type (complex)"
+            },
+            {
+                "id": "hcl-typePrimitive",
+                "superType": "keyword",
+                "description": "Type (primitive)"
+            },
+            {
+                "id": "hcl-functionName",
+                "superType": "function",
+                "description": "Function name"
+            }
+        ],
+        "semanticTokenScopes": [
+            {
+                "scopes": {
+                    "hcl-attrName": [
+                        "variable.other.property"
+                    ],
+                    "hcl-blockType": [
+                        "entity.name.type"
+                    ],
+                    "hcl-blockLabel": [
+                        "variable.other.enummember"
+                    ],
+                    "hcl-bool": [
+                        "keyword.control"
+                    ],
+                    "hcl-string": [
+                        "string"
+                    ],
+                    "hcl-number": [
+                        "constant.numeric"
+                    ],
+                    "hcl-objectKey": [
+                        "variable.parameter"
+                    ],
+                    "hcl-mapKey": [
+                        "variable.parameter"
+                    ],
+                    "hcl-keyword": [
+                        "keyword.control"
+                    ],
+                    "hcl-referenceStep": [
+                        "variable.other.readwrite"
+                    ],
+                    "hcl-typeComplex": [
+                        "keyword.control"
+                    ],
+                    "hcl-typePrimitive": [
+                        "keyword.control"
+                    ],
+                    "hcl-functionName": [
+                        "support.function"
+                    ]
+                }
+            }
+        ],
+        "semanticTokenModifiers": [
+            {
+                "id": "hcl-dependent",
+                "description": "Dependent"
+            },
+            {
+                "id": "terraform-data",
+                "description": "Data source"
+            },
+            {
+                "id": "terraform-locals",
+                "description": "Locals"
+            },
+            {
+                "id": "terraform-module",
+                "description": "Module"
+            },
+            {
+                "id": "terraform-output",
+                "description": "Output"
+            },
+            {
+                "id": "terraform-provider",
+                "description": "Provider"
+            },
+            {
+                "id": "terraform-resource",
+                "description": "Resource"
+            },
+            {
+                "id": "terraform-provisioner",
+                "description": "Provisioner"
+            },
+            {
+                "id": "terraform-connection",
+                "description": "Connection"
+            },
+            {
+                "id": "terraform-variable",
+                "description": "Variable"
+            },
+            {
+                "id": "terraform-terraform",
+                "description": "Terraform"
+            },
+            {
+                "id": "terraform-backend",
+                "description": "Backend"
+            },
+            {
+                "id": "terraform-name",
+                "description": "Name"
+            },
+            {
+                "id": "terraform-type",
+                "description": "Type"
+            },
+            {
+                "id": "terraform-requiredProviders",
+                "description": "Required providers"
+            }
+        ],
+        "snippets": [
+            {
+                "language": "terraform",
+                "path": "./assets/snippets.json"
+            }
+        ],
+        "configuration": {
+            "title": "OpenTofu / Terraform",
+            "properties": {
+                "opentofu.flavour": {
+                    "type": "string",
+                    "enum": [
+                        "opentofu",
+                        "terraform",
+                        "auto"
+                    ],
+                    "default": "auto",
+                    "description": "Enforces either using Terraform or OpenTofu. Defaults to `auto`, which will find either `terraform` or `tofu` binaries",
+                    "enumDescriptions": [
+                        "OpenTofu",
+                        "Terraform",
+                        "Automatic Select"
+                    ]
+                },
+                "opentofu.experimentals.validateOnSave": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "**EXPERIMENTAL**: Runs the `validate` subcommand on the file that was saved"
+                },
+                "opentofu.lsp.enable": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Enables the LSP for either OpenTofu or Terraform. If `opentofu.flavour` == `terraform`, this will use `terraform-ls`, otherwise it'll use the unstable `opentofu-ls` binary"
+                },
+                "opentofu.lsp.binary": {
+                    "type": "string",
+                    "default": "auto",
+                    "description": "Binary location to the LSP. Defaults to `auto`, which will find either `opentofu-ls` or `terraform-ls`."
+                },
+                "opentofu.lsp.args": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "default": [],
+                    "description": "Arguments to passthrough the LSP server"
+                },
+                "opentofu.lsp.tcp.port": {
+                    "type": "number",
+                    "default": null,
+                    "description": "TCP port that the LSP will run in, this will use TCP mode."
+                },
+                "opentofu.lsp.experimentals.requestConcurrency": {
+                    "type": "number",
+                    "default": null,
+                    "description": "Number of RPC requests to process concurrently, using a lower number of 2 is not recommended."
+                },
+                "opentofu.lsp.experimentals.logFile": {
+                    "type": "string",
+                    "default": null,
+                    "description": "Path to a file to log into support for variables (e.g. timestamp, pid, ppid) via Go templating (`{{varName}}`)"
+                }
+            }
+        }
+    },
+    "scripts": {
+        "publish": "./hack/publish.ts",
+        "package": "./hack/package.ts",
+        "watch": "vite build --watch",
+        "build": "vite build",
+        "check": "prettier --check **/*.{js,ts,json,md,yaml}",
+        "lint": "eslint -f codeframe --exit-on-fatal-error",
+        "fmt": "prettier --write **/*.{js,ts,json,md,yaml}"
+    },
+    "dependencies": {
+        "@noelware/utils": "2.5.1",
+        "reactive-vscode": "0.2.14",
+        "vscode-languageclient": "9.0.1",
+        "which": "5.0.0"
+    },
+    "devDependencies": {
+        "@augu/eslint-config": "5.3.1",
+        "@augu/tsconfig": "1.2.0",
+        "@stylistic/eslint-plugin": "4.2.0",
+        "@types/node": "22.15.3",
+        "@types/vscode": "^1.80",
+        "@types/which": "3.0.4",
+        "@vscode/vsce": "3.3.2",
+        "eslint": "9.26.0",
+        "eslint-config-prettier": "10.1.2",
+        "prettier": "3.5.3",
+        "typescript": "5.8.3",
+        "typescript-eslint": "8.31.1",
+        "vite": "6.3.4"
+    }
+}

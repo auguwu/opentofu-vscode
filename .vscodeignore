@@ -1,0 +1,17 @@
+# folders
+.direnv/
+.github/
+.vscode/
+hack/
+nix/
+node_modules/
+
+# files
+.envrc
+.prettierignore
+.prettierrc.json
+default.nix
+eslint.config.js
+flake.lock
+flake.nix
+shell.nix
