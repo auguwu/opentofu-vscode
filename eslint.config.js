@@ -1,5 +1,5 @@
 /*
- * 🐻‍❄️🫖 opentofu-vscode: Visual Studio Code extension to easily interop between Terraform and OpenTofu
+ * 🐻‍❄️🫖 opentofu-vscode: Visual Studio Code extension for OpenTofu
  * Copyright (C) 2025 Noel Towa <cutie@floofy.dev>
  *
  * This program is free software: you can redistribute it and/or modify

@@ -1,8 +1,8 @@
 {
     "name": "@noel/opentofu-vscode",
-    "description": "🐻‍❄️🫖 Visual Studio Code extension to easily interop between Terraform and OpenTofu",
+    "description": "🐻‍❄️🫖 Visual Studio Code extension for OpenTofu",
     "version": "0.1.0",
-    "displayName": "OpenTofu / Terraform for Visual Studio Code",
+    "displayName": "OpenTofu for Visual Studio Code",
     "publisher": "auguwu",
     "type": "module",
     "private": true,
@@ -312,21 +312,6 @@
         "configuration": {
             "title": "OpenTofu / Terraform",
             "properties": {
-                "opentofu.flavour": {
-                    "type": "string",
-                    "enum": [
-                        "opentofu",
-                        "terraform",
-                        "auto"
-                    ],
-                    "default": "auto",
-                    "description": "Enforces either using Terraform or OpenTofu. Defaults to `auto`, which will find either `terraform` or `tofu` binaries",
-                    "enumDescriptions": [
-                        "OpenTofu",
-                        "Terraform",
-                        "Automatic Select"
-                    ]
-                },
                 "opentofu.experimentals.validateOnSave": {
                     "type": "boolean",
                     "default": false,
@@ -335,12 +320,12 @@
                 "opentofu.lsp.enable": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Enables the LSP for either OpenTofu or Terraform. If `opentofu.flavour` == `terraform`, this will use `terraform-ls`, otherwise it'll use the unstable `opentofu-ls` binary"
+                    "description": "Enables the use of OpenTofu's experimental LSP support"
                 },
                 "opentofu.lsp.binary": {
                     "type": "string",
                     "default": "auto",
-                    "description": "Binary location to the LSP. Defaults to `auto`, which will find either `opentofu-ls` or `terraform-ls`."
+                    "description": "Binary location to the LSP. Defaults to `opentofu-ls` on the system."
                 },
                 "opentofu.lsp.args": {
                     "type": "array",
@@ -348,7 +333,7 @@
                         "type": "string"
                     },
                     "default": [],
-                    "description": "Arguments to passthrough the LSP server"
+                    "description": "Arguments to passthrough the LSP server (it'll be after `opentofu-ls serve`)"
                 },
                 "opentofu.lsp.tcp.port": {
                     "type": "number",

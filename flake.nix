@@ -1,4 +1,4 @@
-# 🐻‍❄️🫖 opentofu-vscode: Visual Studio Code extension to easily interop between Terraform and OpenTofu
+# 🐻‍❄️🫖 opentofu-vscode: Visual Studio Code extension for OpenTofu
 # Copyright (C) 2025 Noel Towa <cutie@floofy.dev>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -22,16 +22,17 @@
     };
   };
 
-  outputs = { nixpkgs, ... }: let
+  outputs = {nixpkgs, ...}: let
     eachSystem = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
     overlays = [];
 
-    nixpkgsFor = system: import nixpkgs {
-      inherit system overlays;
-    };
+    nixpkgsFor = system:
+      import nixpkgs {
+        inherit system overlays;
+      };
   in {
-    formatter = eachSystem(system: (nixpkgsFor system).alejandra);
-    packages = eachSystem(system: let
+    formatter = eachSystem (system: (nixpkgsFor system).alejandra);
+    packages = eachSystem (system: let
       inherit (nixpkgsFor system) callPackage;
 
       opentofu-vscode = callPackage ./nix/package.nix {};
@@ -40,7 +41,7 @@
       default = opentofu-vscode;
     });
 
-    devShells = eachSystem(system: let
+    devShells = eachSystem (system: let
       inherit (nixpkgsFor system) callPackage;
     in {
       default = callPackage ./nix/devshell.nix {};
