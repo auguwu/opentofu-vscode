@@ -17,9 +17,13 @@
  */
 
 import { defineExtension } from 'reactive-vscode';
+import Context from './context';
 
-const { activate, deactivate } = defineExtension(() => {
-    console.log('Hello, world!');
+const { activate, deactivate } = defineExtension(async (ext) => {
+    console.log('[opentofu-vscode] Hello, world!');
+
+    const context = new Context(ext);
+    await context.setup();
 });
 
 export { activate, deactivate };

@@ -7,7 +7,7 @@
             "request": "launch",
             "preLaunchTask": "npm: build",
             "args": ["--extensionDevelopmentPath=${workspaceFolder}"],
-            "outFiles": ["${workspaceFolder}/out/**/*.js"]
+            "outFiles": ["${workspaceFolder}/out/**/*.js", "${workspaceFolder}/out/**/*.cjs"]
         }
     ]
 }

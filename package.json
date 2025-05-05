@@ -1,5 +1,5 @@
 {
-    "name": "@noel/opentofu-vscode",
+    "name": "opentofu-vscode",
     "description": "🐻‍❄️🫖 Visual Studio Code extension for OpenTofu",
     "version": "0.1.0",
     "displayName": "OpenTofu for Visual Studio Code",
@@ -10,7 +10,7 @@
     "repository": "https://github.com/auguwu/opentofu-vscode",
     "bugs": "https://github.com/auguwu/opentofu-vscode/issues",
     "license": "GPL-3.0-only",
-    "main": "out/extension.js",
+    "main": "out/extension.cjs",
     "browser": "out/extension.web.js",
     "categories": [
         "Formatters",
@@ -310,21 +310,62 @@
             }
         ],
         "configuration": {
-            "title": "OpenTofu / Terraform",
+            "title": "OpenTofu",
             "properties": {
+                "opentofu.statusBar": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Shows a status bar on the left-hand side, similar to `rust-analyzer`."
+                },
+                "opentofu.binary": {
+                    "type": "string",
+                    "default": "tofu",
+                    "description": "Location to the `tofu` binary"
+                },
+                "opentofu.ignoreSingleFileWarning": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "If a warning is emitted by the LSP if there is ever a single file."
+                },
+                "opentofu.validation.enhanced": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Provides enhanced validation"
+                },
+                "opentofu.indexing.ignoreDirectoryNames": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "default": [],
+                    "description": "A list of directory names that the LSP should ignore when indexing"
+                },
+                "opentofu.indexing.ignorePaths": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "default": [],
+                    "description": "A list of paths that the LSP should ignore when indexing"
+                },
                 "opentofu.experimentals.validateOnSave": {
                     "type": "boolean",
                     "default": false,
                     "description": "**EXPERIMENTAL**: Runs the `validate` subcommand on the file that was saved"
                 },
-                "opentofu.lsp.enable": {
+                "opentofu.experimentals.prefillRequiredFields": {
                     "type": "boolean",
                     "default": false,
+                    "description": "Allows the LSP to pre-fill all required fields."
+                },
+                "opentofu.lsp.enable": {
+                    "type": "boolean",
+                    "default": true,
                     "description": "Enables the use of OpenTofu's experimental LSP support"
                 },
                 "opentofu.lsp.binary": {
                     "type": "string",
-                    "default": "auto",
+                    "default": "opentofu-ls",
                     "description": "Binary location to the LSP. Defaults to `opentofu-ls` on the system."
                 },
                 "opentofu.lsp.args": {
@@ -354,9 +395,10 @@
         }
     },
     "scripts": {
+        "update:vscode": "vscode-ext-gen --scope opentofu",
         "publish": "./hack/publish.ts",
         "package": "./hack/package.ts",
-        "watch": "vite build --watch",
+        "watch": "vite build --mode development --watch",
         "build": "vite build",
         "check": "prettier --check **/*.{js,ts,json,md,yaml}",
         "lint": "eslint -f codeframe --exit-on-fatal-error",
@@ -381,6 +423,8 @@
         "prettier": "3.5.3",
         "typescript": "5.8.3",
         "typescript-eslint": "8.31.1",
-        "vite": "6.3.4"
+        "vite": "6.3.4",
+        "vite-plugin-node-polyfills": "^0.23.0",
+        "vscode-ext-gen": "^1.0.2"
     }
 }

@@ -4,6 +4,29 @@
 
 This project aims to be a successor towards [`gamunu/vscode-opentofu`], the extension that I've been using but it came that it hasn't been maintained and is a fork of [`hashicorp/vscode-terraform`]. This is a whole different project with different views that I hope you can understand. :)
 
+## Configuration
+
+<!-- configs -->
+
+| Key                                             | Description                                                                                                    | Type      | Default         |
+| ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | --------- | --------------- |
+| `opentofu.statusBar`                            | Shows a status bar on the left-hand side, similar to `rust-analyzer`.                                          | `boolean` | `true`          |
+| `opentofu.binary`                               | Location to the `tofu` binary                                                                                  | `string`  | `"tofu"`        |
+| `opentofu.ignoreSingleFileWarning`              | If a warning is emitted by the LSP if there is ever a single file.                                             | `boolean` | `true`          |
+| `opentofu.validation.enhanced`                  | Provides enhanced validation                                                                                   | `boolean` | `false`         |
+| `opentofu.indexing.ignoreDirectoryNames`        | A list of directory names that the LSP should ignore when indexing                                             | `array`   | `[]`            |
+| `opentofu.indexing.ignorePaths`                 | A list of paths that the LSP should ignore when indexing                                                       | `array`   | `[]`            |
+| `opentofu.experimentals.validateOnSave`         | **EXPERIMENTAL**: Runs the `validate` subcommand on the file that was saved                                    | `boolean` | `false`         |
+| `opentofu.experimentals.prefillRequiredFields`  | Allows the LSP to pre-fill all required fields.                                                                | `boolean` | `false`         |
+| `opentofu.lsp.enable`                           | Enables the use of OpenTofu's experimental LSP support                                                         | `boolean` | `true`          |
+| `opentofu.lsp.binary`                           | Binary location to the LSP. Defaults to `opentofu-ls` on the system.                                           | `string`  | `"opentofu-ls"` |
+| `opentofu.lsp.args`                             | Arguments to passthrough the LSP server (it'll be after `opentofu-ls serve`)                                   | `array`   | `[]`            |
+| `opentofu.lsp.tcp.port`                         | TCP port that the LSP will run in, this will use TCP mode.                                                     | `number`  | `null`          |
+| `opentofu.lsp.experimentals.requestConcurrency` | Number of RPC requests to process concurrently, using a lower number of 2 is not recommended.                  | `number`  | `null`          |
+| `opentofu.lsp.experimentals.logFile`            | Path to a file to log into support for variables (e.g. timestamp, pid, ppid) via Go templating (`{{varName}}`) | `string`  | `null`          |
+
+<!-- configs -->
+
 ## License
 
 **auguwu/opentofu-vscode** is released under the **GNU General Public License v3** with love and care by [Noel Towa](https://floofy.dev)! 🐻‍❄️♥️

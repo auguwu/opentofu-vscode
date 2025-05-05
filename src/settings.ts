@@ -16,23 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { defineConfig } from 'vite';
+import { defineConfigObject, defineConfigs } from 'reactive-vscode';
+import { NestedScopedConfigs, scopedConfigs } from './generated-meta';
 
-const EXTERNAL_DEPENDENCIES = ['vscode', 'vscode-languageclient/node', 'path', 'fs', 'fs/promises', /^node:/] as const;
-
-export default defineConfig({
-    build: {
-        //minify: process.env.NODE_ENV === 'production',
-        minify: false,
-        outDir: 'out',
-        emptyOutDir: true,
-        lib: {
-            fileName: 'extension',
-            formats: ['cjs'],
-            entry: './src/extension.ts'
-        },
-        rollupOptions: {
-            external: EXTERNAL_DEPENDENCIES as unknown as string[]
-        }
-    }
-});
+export const settings = defineConfigObject<NestedScopedConfigs>(scopedConfigs.scope, scopedConfigs.defaults);
