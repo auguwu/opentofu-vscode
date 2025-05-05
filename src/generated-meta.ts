@@ -12,12 +12,42 @@ export const extensionId = `${publisher}.${name}`
 /**
  * Type union of all commands
  */
-export type CommandKey = never
+export type CommandKey = 
+  | "opentofu.openServerLogs"
+  | "opentofu.apply"
+  | "opentofu.init"
+  | "opentofu.plan"
+  | "opentofu.validate"
 
 /**
  * Commands map registed by `auguwu.opentofu-vscode`
  */
 export const commands = {
+  /**
+   * OpenTofu: Open Server Logs
+   * @value `opentofu.openServerLogs`
+   */
+  openServerLogs: "opentofu.openServerLogs",
+  /**
+   * OpenTofu: tofu apply
+   * @value `opentofu.apply`
+   */
+  apply: "opentofu.apply",
+  /**
+   * OpenTofu: tofu init
+   * @value `opentofu.init`
+   */
+  init: "opentofu.init",
+  /**
+   * OpenTofu: tofu plan
+   * @value `opentofu.plan`
+   */
+  plan: "opentofu.plan",
+  /**
+   * OpenTofu: Validate
+   * @value `opentofu.validate`
+   */
+  validate: "opentofu.validate",
 } satisfies Record<string, CommandKey>
 
 /**

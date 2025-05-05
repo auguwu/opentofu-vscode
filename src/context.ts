@@ -17,8 +17,8 @@
  */
 
 import { useDisposable, useOutputChannel, useStatusBarItem } from 'reactive-vscode';
-import { sync as which } from 'which';
 import LanguageServer, { Status } from './lsp';
+import { sync as which } from 'which';
 import { isAbsolute } from 'node:path';
 import { execSync } from 'node:child_process';
 import { settings } from './settings';
@@ -34,6 +34,7 @@ import {
     workspace,
     MarkdownString
 } from 'vscode';
+import { State } from 'vscode-languageclient';
 
 /**
  * A instance of the OpenTofu VSCode extension running.
@@ -43,6 +44,7 @@ export default class Context implements Disposable {
 
     private readonly _extensionContext: ExtensionContext;
 
+    private _tofuBinary: string = null!;
     private _statusBar: StatusBarItem | undefined;
     private _lsp: LanguageServer | undefined;
 
@@ -69,7 +71,13 @@ export default class Context implements Disposable {
         return this._extensionContext;
     }
 
+    getLanguageServer() {
+        return this._lsp;
+    }
+
     getTofuBinary() {
+        if (this._tofuBinary !== null) return this._tofuBinary;
+
         let binPath = settings.binary;
         if (!isAbsolute(binPath) && !binPath.startsWith('./')) {
             const ctx = Context.getInstance();
@@ -83,9 +91,9 @@ export default class Context implements Disposable {
                 return null;
             }
 
-            return path;
+            return (this._tofuBinary = path);
         } else {
-            return settings.binary;
+            return (this._tofuBinary = settings.binary);
         }
     }
 
@@ -98,21 +106,29 @@ export default class Context implements Disposable {
         }
 
         if (settings.statusBar) {
-            const version = execSync(`${tofu} --version --json`).toString('utf-8');
-            this.outputChannel.appendLine(`$ ${tofu} --version --json\n${version}`);
-
-            const data = JSON.parse(version);
-            this.#updateStatusBar(Status.Unknown);
+            this._updateStatusBar(null);
+            this._extensionContext.subscriptions.push(
+                workspace.onDidChangeConfiguration((event) => {
+                    if (event.affectsConfiguration('opentofu.statusBar')) {
+                        const value = workspace.getConfiguration('opentofu').get<boolean>('statusBar', true);
+                        if (!value) {
+                            this._statusBar?.hide();
+                            this._statusBar?.dispose();
+                        } else {
+                            this._updateStatusBar(this._lsp?.getState() || null);
+                        }
+                    }
+                })
+            );
         }
 
         if (settings.lsp.enable) {
             this._lsp = new LanguageServer();
-            this._lsp.onStatusChange((old, newStatus) => {
-                this.outputChannel.appendLine(`new lsp status from context: ${Status[old]} -> ${Status[newStatus]}`);
-                this.#updateStatusBar(newStatus);
-            });
-
             await this._lsp.setup(this);
+        }
+
+        for (const command of [await import('./commands/openServerLogs').then((m) => m.default)]) {
+            command();
         }
     }
 
@@ -131,49 +147,39 @@ export default class Context implements Disposable {
         Context.INSTANCE = null!;
     }
 
-    #updateStatusBar(status: Status) {
+    _updateStatusBar(state: State | null) {
         if (this._statusBar === undefined) {
             this._statusBar = useStatusBarItem({
                 alignment: StatusBarAlignment.Left,
-                name: 'OpenTofu',
+                command: 'opentofu.openServerLogs',
+                name: '$(debug-hint) OpenTofu',
                 text: 'OpenTofu'
             });
         }
 
-        workspace.onDidChangeConfiguration((event) => {
-            if (event.affectsConfiguration('opentofu.statusBar')) {
-                const value = workspace.getConfiguration('opentofu').get<boolean>('statusBar', true);
-                if (!value) {
-                    this._statusBar?.hide();
-                    this._statusBar?.dispose();
-                } else {
-                    this.#updateStatusBar(this._lsp?.getStatus() || Status.Unknown);
-                }
-            }
-        });
+        if (state === null) return;
 
-        let lspStatus = '';
-        switch (status) {
-            case Status.Unhealthy:
-                lspStatus = '$(warning) ';
+        let icon = '';
+        switch (state) {
+            case State.Starting:
+                icon = '$(sync~spin) ';
+                break;
 
+            case State.Stopped:
+                icon = '$(warning) ';
                 this._statusBar.color = new ThemeColor('statusBarItem.warningForeground');
                 this._statusBar.backgroundColor = new ThemeColor('statusBarItem.warningBackground');
-                this._statusBar.command = 'opentofu.openServerLogs';
-                break;
-
-            case Status.Healthy:
-                lspStatus = '$(debug-hint) ';
 
                 break;
 
-            default:
+            case State.Running:
+                icon = '$(debug-breakpoint-log) ';
                 break;
         }
 
         const { terraform_version, platform } = getTofuVersion(this.getTofuBinary()!);
         this._statusBar.tooltip = new MarkdownString(
-            `OpenTofu v${terraform_version} [${platform}]\n\n---\n${lspStatus}**LSP Status**: ${Status[status]} **|** [$(terminal) Open LSP Logs](command:opentofu.openServerLogs "Open LSP Logs")`,
+            `OpenTofu v${terraform_version} [${platform}]\n\n---\n${icon}**LSP Status**: ${State[state]}`,
             true
         );
 

@@ -31,7 +31,7 @@
     "contributes": {
         "languages": [
             {
-                "id": "terraform",
+                "id": "opentofu",
                 "aliases": [
                     "OpenTofu",
                     "opentofu",
@@ -44,49 +44,9 @@
                 "configuration": "./assets/language-configuration.json"
             },
             {
-                "id": "terraform-vars",
+                "id": "opentofu-vars",
                 "extensions": [
                     ".tfvars"
-                ],
-                "configuration": "./assets/language-configuration.json"
-            },
-            {
-                "id": "terraform-stack",
-                "aliases": [
-                    "Terraform Stack"
-                ],
-                "extensions": [
-                    ".tfstack.hcl"
-                ],
-                "configuration": "./assets/language-configuration.json"
-            },
-            {
-                "id": "terraform-deploy",
-                "aliases": [
-                    "Terraform Deployment"
-                ],
-                "extensions": [
-                    ".tfdeploy.hcl"
-                ],
-                "configuration": "./assets/language-configuration.json"
-            },
-            {
-                "id": "terraform-test",
-                "aliases": [
-                    "Terraform Test"
-                ],
-                "extensions": [
-                    ".tftest.hcl"
-                ],
-                "configuration": "./assets/language-configuration.json"
-            },
-            {
-                "id": "terraform-mock",
-                "aliases": [
-                    "Terraform Mock"
-                ],
-                "extensions": [
-                    ".tfmock.hcl"
                 ],
                 "configuration": "./assets/language-configuration.json"
             },
@@ -99,32 +59,12 @@
         ],
         "grammars": [
             {
-                "language": "terraform",
+                "language": "opentofu",
                 "scopeName": "source.hcl.terraform",
                 "path": "./assets/syntaxes/terraform.tmGrammar.json"
             },
             {
-                "language": "terraform-vars",
-                "scopeName": "source.hcl.terraform",
-                "path": "./assets/syntaxes/terraform.tmGrammar.json"
-            },
-            {
-                "language": "terraform-stack",
-                "scopeName": "source.hcl.terraform",
-                "path": "./assets/syntaxes/terraform.tmGrammar.json"
-            },
-            {
-                "language": "terraform-deploy",
-                "scopeName": "source.hcl.terraform",
-                "path": "./assets/syntaxes/terraform.tmGrammar.json"
-            },
-            {
-                "language": "terraform-test",
-                "scopeName": "source.hcl.terraform",
-                "path": "./assets/syntaxes/terraform.tmGrammar.json"
-            },
-            {
-                "language": "terraform-mock",
+                "language": "opentofu-vars",
                 "scopeName": "source.hcl.terraform",
                 "path": "./assets/syntaxes/terraform.tmGrammar.json"
             }
@@ -309,6 +249,48 @@
                 "path": "./assets/snippets.json"
             }
         ],
+        "commands": [
+            {
+                "command": "opentofu.openServerLogs",
+                "title": "OpenTofu: Open Server Logs"
+            },
+            {
+                "command": "opentofu.apply",
+                "title": "OpenTofu: tofu apply"
+            },
+            {
+                "command": "opentofu.init",
+                "title": "OpenTofu: tofu init"
+            },
+            {
+                "command": "opentofu.plan",
+                "title": "OpenTofu: tofu plan"
+            },
+            {
+                "command": "opentofu.validate",
+                "title": "OpenTofu: Validate"
+            }
+        ],
+        "menus": {
+            "commandPalette": [
+                {
+                    "command": "opentofu.openServerLogs",
+                    "when": "config.opentofu.lsp.enable == true"
+                },
+                {
+                    "command": "opentofu.init",
+                    "when": "config.opentofu.lsp.enable == true"
+                },
+                {
+                    "command": "opentofu.plan",
+                    "when": "config.opentofu.lsp.enable == true"
+                },
+                {
+                    "command": "opentofu.apply",
+                    "when": "config.opentofu.lsp.enable == true"
+                }
+            ]
+        },
         "configuration": {
             "title": "OpenTofu",
             "properties": {

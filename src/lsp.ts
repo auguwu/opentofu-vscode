@@ -16,16 +16,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import {
-    executeCommand,
-    Ref,
-    ref,
-    useOutputChannel,
-    watch,
-    type WatchCallback,
-    type WatchOptions
-} from 'reactive-vscode';
+import { executeCommand, Ref, ref, useOutputChannel, watch, type WatchOptions } from 'reactive-vscode';
 import { type Disposable, workspace, OutputChannel, window, DocumentSelector } from 'vscode';
+import SemanticTokensFeature from './features/semanticTokens';
 import { sync as which } from 'which';
 import { isAbsolute } from 'node:path';
 import { settings } from './settings';
@@ -43,12 +36,13 @@ import {
     ServerOptions,
     State
 } from 'vscode-languageclient/node';
+import TerraformVersion from './features/terraformVersion';
 
 export enum Status {
+    Unknown,
+    Starting,
     Healthy,
-    Unhealthy,
-    Stopped,
-    Unknown
+    Stopped
 }
 
 const FAILED_TO_START =
@@ -58,6 +52,7 @@ const MAX_CRASHES = 3 as const;
 
 const initError = ref<InitializeError | null>(null);
 const crashCount = ref(0);
+const state = ref<State | null>(null);
 
 export default class LanguageServer implements Disposable {
     private readonly _outputChannel: OutputChannel = useOutputChannel('OpenTofu | Language Server');
@@ -65,11 +60,21 @@ export default class LanguageServer implements Disposable {
     private _client: LanguageClient | undefined;
 
     private static readonly DOCUMENT_SELECTOR: DocumentSelector = [
-        { scheme: 'file', language: 'terraform' },
-        { scheme: 'file', language: 'terraform-vars' },
-        { scheme: 'file', language: 'terraform-stack' },
-        { scheme: 'file', language: 'terraform-deploy' }
+        { scheme: 'file', language: 'opentofu' },
+        { scheme: 'file', language: 'opentofu-vars' }
     ];
+
+    getOutputChannel() {
+        return this._outputChannel;
+    }
+
+    getClient() {
+        return this._client;
+    }
+
+    setStatus(status: Status) {
+        this._status.value = status;
+    }
 
     async setup(ctx: Context) {
         const tofu = ctx.getTofuBinary();
@@ -134,23 +139,19 @@ export default class LanguageServer implements Disposable {
             }
         });
 
+        this._client.registerProposedFeatures();
+        this._client.registerFeatures([new SemanticTokensFeature(ctx), new TerraformVersion(ctx)]);
         this._client.onDidChangeState((event) => {
-            this._outputChannel.appendLine(
+            const ctx = Context.getInstance();
+            ctx.outputChannel.appendLine(
                 `lsp client: changed state => ${State[event.oldState]} -> ${State[event.newState]}`
             );
 
-            switch (event.newState) {
-                case State.Starting:
-                    this._status.value = Status.Unhealthy;
-                    break;
-
-                case State.Running:
-                    this._status.value = Status.Healthy;
-                    break;
-
-                case State.Stopped:
-                    this._status.value = Status.Stopped;
-                    break;
+            const oldState = state.value;
+            state.value = event.newState;
+            if (oldState !== state.value) {
+                // eslint-disable-next-line ts/dot-notation
+                ctx['_updateStatusBar'](event.newState);
             }
         });
 
@@ -238,6 +239,10 @@ export default class LanguageServer implements Disposable {
         return { error: onError, closed: onClosed };
     }
 
+    getState() {
+        return state.value;
+    }
+
     getLspBinaryPath() {
         let binPath = settings.lsp.binary;
         if (!isAbsolute(binPath) && !binPath.startsWith('./')) {
@@ -261,19 +266,6 @@ export default class LanguageServer implements Disposable {
     /** Returns the status of this LSP. */
     getStatus() {
         return this._status.value;
-    }
-
-    /** Returns a {@link WatchHandle `WatchHandle`} to react on changes of the LSP status. */
-    onStatusChange(f: (old: Status, newStatus: Status) => void, options?: WatchOptions<true>) {
-        return watch(
-            this._status,
-            (old, newStatus) => {
-                if (old !== undefined && newStatus !== undefined) {
-                    f(old, newStatus);
-                }
-            },
-            { immediate: true, ...options }
-        );
     }
 
     dispose() {

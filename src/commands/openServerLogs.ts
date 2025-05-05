@@ -15,3 +15,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
+import { useCommand } from 'reactive-vscode';
+import { window } from 'vscode';
+import * as meta from '../generated-meta';
+import Context from '../context';
+
+export default () =>
+    useCommand(meta.commands.openServerLogs, () => {
+        const ctx = Context.getInstance();
+        const lsp = ctx.getLanguageServer();
+
+        if (!lsp) {
+            window.showWarningMessage('OpenTofu LSP is not running.');
+            return;
+        }
+
+        lsp.getOutputChannel().show();
+    });
