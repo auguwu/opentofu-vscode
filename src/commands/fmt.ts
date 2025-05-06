@@ -16,8 +16,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { useCommand } from 'reactive-vscode';
+import { useActiveTextEditor, useCommand } from 'reactive-vscode';
 import { commands } from '../generated-meta';
-import { command } from '../util';
+import { noop } from '@noelware/utils';
+import Context from '../context';
 
-export default () => useCommand(commands.apply, () => command('apply', true));
+export default () =>
+    useCommand(commands.fmt, async () => {
+        const editor = useActiveTextEditor();
+        if (editor.value === undefined) return;
+
+        return Context.getInstance().getFormatter().fmt(editor.value.document).then(noop);
+    });

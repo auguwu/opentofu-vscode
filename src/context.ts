@@ -16,12 +16,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { useDisposable, useOutputChannel, useStatusBarItem } from 'reactive-vscode';
-import LanguageServer, { Status } from './lsp';
+import { executeCommand, useOutputChannel, useStatusBarItem } from 'reactive-vscode';
 import { sync as which } from 'which';
+import LanguageServer from './lsp';
 import { isAbsolute } from 'node:path';
 import { execSync } from 'node:child_process';
 import { settings } from './settings';
+import Formatter from './formatter';
+import { State } from 'vscode-languageclient';
 
 import {
     type ExtensionContext,
@@ -32,9 +34,9 @@ import {
     StatusBarAlignment,
     ThemeColor,
     workspace,
-    MarkdownString
+    MarkdownString,
+    languages
 } from 'vscode';
-import { State } from 'vscode-languageclient';
 
 /**
  * A instance of the OpenTofu VSCode extension running.
@@ -43,6 +45,7 @@ export default class Context implements Disposable {
     private static INSTANCE: Context = null!;
 
     private readonly _extensionContext: ExtensionContext;
+    private readonly _fmt: Formatter = new Formatter();
 
     private _tofuBinary: string = null!;
     private _statusBar: StatusBarItem | undefined;
@@ -51,7 +54,7 @@ export default class Context implements Disposable {
     readonly outputChannel: OutputChannel;
 
     constructor(ext: ExtensionContext) {
-        useDisposable(this);
+        ext.subscriptions.push(this);
 
         this.outputChannel = useOutputChannel('OpenTofu');
         this._extensionContext = ext;
@@ -97,6 +100,10 @@ export default class Context implements Disposable {
         }
     }
 
+    getFormatter() {
+        return this._fmt;
+    }
+
     /** Sets up the context. */
     async setup() {
         const tofu = this.getTofuBinary();
@@ -127,9 +134,49 @@ export default class Context implements Disposable {
             await this._lsp.setup(this);
         }
 
-        for (const command of [await import('./commands/openServerLogs').then((m) => m.default)]) {
-            command();
+        for (const command of [
+            await import('./commands/apply'),
+            await import('./commands/disable'),
+            await import('./commands/enable'),
+            await import('./commands/init'),
+            await import('./commands/openServerLogs'),
+            await import('./commands/plan'),
+            await import('./commands/validate'),
+            await import('./commands/fmt')
+        ]) {
+            command.default();
         }
+
+        this._extensionContext.subscriptions.push(
+            workspace.onDidChangeConfiguration(async (event) => {
+                if (event.affectsConfiguration('opentofu.lsp') && !event.affectsConfiguration('opentofu.lsp.enable')) {
+                    const selected = await window.showInformationMessage(
+                        'Any changes to the LSP server will require a restart',
+                        'Reload'
+                    );
+
+                    if (selected === 'Reload') {
+                        executeCommand('workbench.action.reloadWindow');
+                    }
+                }
+
+                if (event.affectsConfiguration('opentofu.lsp.enable')) {
+                    const value = workspace.getConfiguration('opentofu').get<boolean>('lsp.enable');
+                    if (!value) {
+                        this._lsp?.dispose();
+                        this._lsp = undefined;
+                    } else {
+                        this._lsp = new LanguageServer();
+                        await this._lsp.setup(this);
+                    }
+                }
+            })
+        );
+
+        this._extensionContext.subscriptions.push(
+            languages.registerDocumentFormattingEditProvider('opentofu', this._fmt),
+            languages.registerDocumentFormattingEditProvider('opentofu-vars', this._fmt)
+        );
     }
 
     dispose() {

@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { defineConfigObject, defineConfigs } from 'reactive-vscode';
 import { NestedScopedConfigs, scopedConfigs } from './generated-meta';
+import { defineConfigObject } from 'reactive-vscode';
 
 export const settings = defineConfigObject<NestedScopedConfigs>(scopedConfigs.scope, scopedConfigs.defaults);

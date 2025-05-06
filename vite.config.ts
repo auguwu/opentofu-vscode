@@ -22,8 +22,7 @@ const EXTERNAL_DEPENDENCIES = ['vscode', 'vscode-languageclient/node', 'path', '
 
 export default defineConfig({
     build: {
-        //minify: process.env.NODE_ENV === 'production',
-        minify: false,
+        minify: process.env.NODE_ENV === 'production',
         outDir: 'out',
         emptyOutDir: true,
         lib: {

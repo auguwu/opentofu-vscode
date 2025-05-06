@@ -18,6 +18,9 @@ export type CommandKey =
   | "opentofu.init"
   | "opentofu.plan"
   | "opentofu.validate"
+  | "opentofu.enableLanguageServer"
+  | "opentofu.disableLanguageServer"
+  | "opentofu.fmt"
 
 /**
  * Commands map registed by `auguwu.opentofu-vscode`
@@ -48,6 +51,21 @@ export const commands = {
    * @value `opentofu.validate`
    */
   validate: "opentofu.validate",
+  /**
+   * OpenTofu: Enable Language Server
+   * @value `opentofu.enableLanguageServer`
+   */
+  enableLanguageServer: "opentofu.enableLanguageServer",
+  /**
+   * OpenTofu: Disable Language Server
+   * @value `opentofu.disableLanguageServer`
+   */
+  disableLanguageServer: "opentofu.disableLanguageServer",
+  /**
+   * OpenTofu: Format
+   * @value `opentofu.fmt`
+   */
+  fmt: "opentofu.fmt",
 } satisfies Record<string, CommandKey>
 
 /**

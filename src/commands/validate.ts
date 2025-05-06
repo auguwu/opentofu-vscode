@@ -15,3 +15,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
+import { useCommand } from 'reactive-vscode';
+import { commands } from '../generated-meta';
+import { command } from '../util';
+
+export default () => useCommand(commands.validate, () => command('validate', true));

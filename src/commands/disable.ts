@@ -18,6 +18,13 @@
 
 import { useCommand } from 'reactive-vscode';
 import { commands } from '../generated-meta';
-import { command } from '../util';
+import { settings } from '../settings';
+import { getScope } from '../util';
 
-export default () => useCommand(commands.apply, () => command('apply', true));
+export default () =>
+    useCommand(commands.disableLanguageServer, () => {
+        if (!settings.lsp.enable) return;
+
+        // @ts-ignore
+        settings.$update('lsp.enable', false, getScope('opentofu', 'lsp.enable'));
+    });

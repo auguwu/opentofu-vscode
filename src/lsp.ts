@@ -85,6 +85,15 @@ export default class LanguageServer implements Disposable {
         }
 
         const serveArgs = ['serve'];
+
+        if (settings.lsp.experimentals.requestConcurrency !== null) {
+            serveArgs.push('-req-concurrency', settings.lsp.experimentals.requestConcurrency.toString());
+        }
+
+        if (settings.lsp.experimentals.logFile !== null) {
+            serveArgs.push('-log-file', settings.lsp.experimentals.logFile);
+        }
+
         if (settings.lsp.args.length) {
             serveArgs.push(...settings.lsp.args);
         }
@@ -106,6 +115,8 @@ export default class LanguageServer implements Disposable {
                     `Cannot use \`opentofu.lsp.tcp.port\` when either the workspace, workspace folder, or global values are defined. Ignoring \`path\` anyway.`
                 );
             }
+
+            serveArgs.push('-port', tcpPort.toString());
 
             serverOptions = async () => {
                 const socket = new Socket();
@@ -133,7 +144,6 @@ export default class LanguageServer implements Disposable {
                 fileEvents: [
                     workspace.createFileSystemWatcher('**/*.tf'),
                     workspace.createFileSystemWatcher('**/*.tfvars'),
-                    workspace.createFileSystemWatcher('**/*.tfstack.hcl'),
                     workspace.createFileSystemWatcher('**/*.tfdeploy.hcl')
                 ]
             }

@@ -4,9 +4,22 @@
 
 This project aims to be a successor towards [`gamunu/vscode-opentofu`], the extension that I've been using but it came that it hasn't been maintained and is a fork of [`hashicorp/vscode-terraform`]. This is a whole different project with different views that I hope you can understand. :)
 
+The one thing you might notice is no webviews. That wasn't in my list of plans for this extension, this extension was made to have a MVP of the OpenTofu Language Server and have formatting capabilities, that's pretty much it.
+
 ## Commands
 
 <!-- commands -->
+
+| Command                          | Title                             |
+| -------------------------------- | --------------------------------- |
+| `opentofu.openServerLogs`        | OpenTofu: Open Server Logs        |
+| `opentofu.apply`                 | OpenTofu: tofu apply              |
+| `opentofu.init`                  | OpenTofu: tofu init               |
+| `opentofu.plan`                  | OpenTofu: tofu plan               |
+| `opentofu.validate`              | OpenTofu: Validate                |
+| `opentofu.enableLanguageServer`  | OpenTofu: Enable Language Server  |
+| `opentofu.disableLanguageServer` | OpenTofu: Disable Language Server |
+| `opentofu.fmt`                   | OpenTofu: Format                  |
 
 <!-- commands -->
 

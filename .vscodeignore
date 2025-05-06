@@ -15,3 +15,6 @@ eslint.config.js
 flake.lock
 flake.nix
 shell.nix
+vite.config.ts
+tsconfig.json
+pnpm-*.yaml

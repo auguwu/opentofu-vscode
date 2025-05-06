@@ -4,6 +4,7 @@
     "version": "0.1.0",
     "displayName": "OpenTofu for Visual Studio Code",
     "publisher": "auguwu",
+    "icon": "./assets/opentofu.png",
     "type": "module",
     "private": true,
     "author": "Noel Towa <cutie@floofy.dev>",
@@ -11,7 +12,6 @@
     "bugs": "https://github.com/auguwu/opentofu-vscode/issues",
     "license": "GPL-3.0-only",
     "main": "out/extension.cjs",
-    "browser": "out/extension.web.js",
     "categories": [
         "Formatters",
         "Programming Languages"
@@ -269,6 +269,18 @@
             {
                 "command": "opentofu.validate",
                 "title": "OpenTofu: Validate"
+            },
+            {
+                "command": "opentofu.enableLanguageServer",
+                "title": "OpenTofu: Enable Language Server"
+            },
+            {
+                "command": "opentofu.disableLanguageServer",
+                "title": "OpenTofu: Disable Language Server"
+            },
+            {
+                "command": "opentofu.fmt",
+                "title": "OpenTofu: Format"
             }
         ],
         "menus": {
@@ -378,8 +390,8 @@
     },
     "scripts": {
         "update:vscode": "vscode-ext-gen --scope opentofu",
-        "publish": "./hack/publish.ts",
-        "package": "./hack/package.ts",
+        "publish": "vsce publish --no-dependencies",
+        "package": "vsce package --no-dependencies",
         "watch": "vite build --mode development --watch",
         "build": "vite build",
         "check": "prettier --check **/*.{js,ts,json,md,yaml}",
@@ -402,6 +414,7 @@
         "@vscode/vsce": "3.3.2",
         "eslint": "9.26.0",
         "eslint-config-prettier": "10.1.2",
+        "eslint-formatter-codeframe": "7.32.1",
         "prettier": "3.5.3",
         "typescript": "5.8.3",
         "typescript-eslint": "8.31.1",
