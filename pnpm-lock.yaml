@@ -31,8 +31,8 @@ importers:
         specifier: 4.2.0
         version: 4.2.0(eslint@9.26.0)(typescript@5.8.3)
       '@types/node':
-        specifier: 22.15.3
-        version: 22.15.3
+        specifier: 22.15.14
+        version: 22.15.14
       '@types/vscode':
         specifier: ^1.80
         version: 1.99.1
@@ -62,10 +62,10 @@ importers:
         version: 8.31.1(eslint@9.26.0)(typescript@5.8.3)
       vite:
         specifier: 6.3.5
-        version: 6.3.5(@types/node@22.15.3)
+        version: 6.3.5(@types/node@22.15.14)
       vite-plugin-node-polyfills:
         specifier: ^0.23.0
-        version: 0.23.0(rollup@4.40.1)(vite@6.3.5(@types/node@22.15.3))
+        version: 0.23.0(rollup@4.40.1)(vite@6.3.5(@types/node@22.15.14))
       vscode-ext-gen:
         specifier: ^1.0.2
         version: 1.0.2
@@ -544,8 +544,8 @@ packages:
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
 
-  '@types/node@22.15.3':
-    resolution: {integrity: sha512-lX7HFZeHf4QG/J7tBZqrCAXwz9J5RD56Y6MpP0eJkka8p+K0RY/yBTW7CYFJ4VGCclxqOLKmiGP5juQc6MKgcw==}
+  '@types/node@22.15.14':
+    resolution: {integrity: sha512-BL1eyu/XWsFGTtDWOYULQEs4KR0qdtYfCxYAUYRoB7JP7h9ETYLgQTww6kH8Sj2C0pFGgrpM0XKv6/kbIzYJ1g==}
 
   '@types/vscode@1.99.1':
     resolution: {integrity: sha512-cQlqxHZ040ta6ovZXnXRxs3fJiTmlurkIWOfZVcLSZPcm9J4ikFpXuB7gihofGn5ng+kDVma5EmJIclfk0trPQ==}
@@ -2726,7 +2726,7 @@ snapshots:
 
   '@types/json-schema@7.0.15': {}
 
-  '@types/node@22.15.3':
+  '@types/node@22.15.14':
     dependencies:
       undici-types: 6.21.0
 
@@ -4659,15 +4659,15 @@ snapshots:
 
   vary@1.1.2: {}
 
-  vite-plugin-node-polyfills@0.23.0(rollup@4.40.1)(vite@6.3.5(@types/node@22.15.3)):
+  vite-plugin-node-polyfills@0.23.0(rollup@4.40.1)(vite@6.3.5(@types/node@22.15.14)):
     dependencies:
       '@rollup/plugin-inject': 5.0.5(rollup@4.40.1)
       node-stdlib-browser: 1.3.1
-      vite: 6.3.5(@types/node@22.15.3)
+      vite: 6.3.5(@types/node@22.15.14)
     transitivePeerDependencies:
       - rollup
 
-  vite@6.3.5(@types/node@22.15.3):
+  vite@6.3.5(@types/node@22.15.14):
     dependencies:
       esbuild: 0.25.3
       fdir: 6.4.4(picomatch@4.0.2)
@@ -4676,7 +4676,7 @@ snapshots:
       rollup: 4.40.1
       tinyglobby: 0.2.13
     optionalDependencies:
-      '@types/node': 22.15.3
+      '@types/node': 22.15.14
       fsevents: 2.3.3
 
   vm-browserify@1.1.2: {}
