@@ -1,3 +1,5 @@
+#!/usr/bin/env -S node --experimental-strip-types
+
 /*
  * 🐻‍❄️🫖 opentofu-vscode: Visual Studio Code extension for OpenTofu
  * Copyright (C) 2025 Noel Towa <cutie@floofy.dev>
@@ -16,22 +18,20 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { defineConfig } from 'vite';
+import { context } from 'esbuild';
 
-const EXTERNAL_DEPENDENCIES = ['vscode', 'path', 'fs', 'fs/promises', /^node:/] as const;
-
-export default defineConfig({
-    build: {
-        minify: process.env.NODE_ENV === 'production',
-        outDir: 'out',
-        emptyOutDir: true,
-        lib: {
-            fileName: 'extension',
-            formats: ['cjs'],
-            entry: './src/extension.ts'
-        },
-        rollupOptions: {
-            external: EXTERNAL_DEPENDENCIES as unknown as string[]
-        }
-    }
+const isProd = process.argv.includes('--prod');
+const ctx = await context({
+    entryPoints: ['src/extension.ts'],
+    bundle: true,
+    format: 'cjs',
+    minify: isProd,
+    sourcemap: !isProd,
+    platform: 'node',
+    external: ['vscode', 'path', 'fs', 'fs/promises', 'node:path', 'node:child_process', 'node:net'],
+    logLevel: 'info',
+    outfile: 'out/extension.cjs'
 });
+
+await ctx.rebuild();
+await ctx.dispose();

@@ -17,3 +17,4 @@ shell.nix
 vite.config.ts
 tsconfig.json
 pnpm-*.yaml
+renovate.json
