@@ -1,0 +1,3 @@
+src/features/terraformVersion.ts @hashicorp
+src/features/semanticTokens.ts @hashicorp
+* @auguwu
