@@ -57,6 +57,8 @@ const state = ref<State | null>(null);
 export default class LanguageServer implements Disposable {
     private readonly _outputChannel: OutputChannel = useOutputChannel('OpenTofu | Language Server');
     private readonly _status: Ref<Status> = ref(Status.Unknown);
+
+    private _lspBinary: string | undefined;
     private _client: LanguageClient | undefined;
 
     private static readonly DOCUMENT_SELECTOR: DocumentSelector = [
@@ -254,6 +256,8 @@ export default class LanguageServer implements Disposable {
     }
 
     getLspBinaryPath() {
+        if (this._lspBinary !== undefined) return this._lspBinary;
+
         let binPath = settings.lsp.binary;
         if (!isAbsolute(binPath) && !binPath.startsWith('./')) {
             const ctx = Context.getInstance();
@@ -267,9 +271,9 @@ export default class LanguageServer implements Disposable {
                 return null;
             }
 
-            return path;
+            return (this._lspBinary = path);
         } else {
-            return settings.binary;
+            return (this._lspBinary = settings.lsp.binary);
         }
     }
 

@@ -1,7 +1,7 @@
 {
     "name": "opentofu-vscode",
     "description": "🐻‍❄️🫖 Visual Studio Code extension for OpenTofu",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "displayName": "OpenTofu | Visual Studio Code",
     "publisher": "auguwu",
     "icon": "./assets/opentofu.png",
