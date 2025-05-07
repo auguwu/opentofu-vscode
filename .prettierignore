@@ -268,3 +268,6 @@ dist
 
 .github/CODEOWNERS
 .direnv/
+
+# ignore pnpm files
+pnpm-*.yaml
