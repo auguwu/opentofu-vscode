@@ -18,7 +18,7 @@
 
 import { defineConfig } from 'vite';
 
-const EXTERNAL_DEPENDENCIES = ['vscode', 'vscode-languageclient/node', 'path', 'fs', 'fs/promises', /^node:/] as const;
+const EXTERNAL_DEPENDENCIES = ['vscode', 'path', 'fs', 'fs/promises', /^node:/] as const;
 
 export default defineConfig({
     build: {
