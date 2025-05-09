@@ -13,7 +13,7 @@ importers:
         version: 2.5.1
       reactive-vscode:
         specifier: 0.2.16
-        version: 0.2.16(@types/vscode@1.99.1)
+        version: 0.2.16(@types/vscode@1.100.0)
       vscode-languageclient:
         specifier: 9.0.1
         version: 9.0.1
@@ -35,7 +35,7 @@ importers:
         version: 22.15.17
       '@types/vscode':
         specifier: ^1.80
-        version: 1.99.1
+        version: 1.100.0
       '@types/which':
         specifier: 3.0.4
         version: 3.0.4
@@ -423,8 +423,8 @@ packages:
   '@types/node@22.15.17':
     resolution: {integrity: sha512-wIX2aSZL5FE+MR0JlvF87BNVrtFWf6AE6rxSE9X7OwnVvoyCQjpzSRJ+M87se/4QCkCiebQAqrJ0y6fwIyi7nw==}
 
-  '@types/vscode@1.99.1':
-    resolution: {integrity: sha512-cQlqxHZ040ta6ovZXnXRxs3fJiTmlurkIWOfZVcLSZPcm9J4ikFpXuB7gihofGn5ng+kDVma5EmJIclfk0trPQ==}
+  '@types/vscode@1.100.0':
+    resolution: {integrity: sha512-4uNyvzHoraXEeCamR3+fzcBlh7Afs4Ifjs4epINyUX/jvdk0uzLnwiDY35UKDKnkCHP5Nu3dljl2H8lR6s+rQw==}
 
   '@types/which@3.0.4':
     resolution: {integrity: sha512-liyfuo/106JdlgSchJzXEQCVArk0CvevqPote8F8HgWgJ3dRCcTHgJIsLDuee0kxk/mhbInzIZk3QWSZJ8R+2w==}
@@ -2156,7 +2156,7 @@ snapshots:
     dependencies:
       undici-types: 6.21.0
 
-  '@types/vscode@1.99.1': {}
+  '@types/vscode@1.100.0': {}
 
   '@types/which@3.0.4': {}
 
@@ -3380,10 +3380,10 @@ snapshots:
       strip-json-comments: 2.0.1
     optional: true
 
-  reactive-vscode@0.2.16(@types/vscode@1.99.1):
+  reactive-vscode@0.2.16(@types/vscode@1.100.0):
     dependencies:
       '@reactive-vscode/reactivity': 0.2.16
-      '@types/vscode': 1.99.1
+      '@types/vscode': 1.100.0
 
   read@1.0.7:
     dependencies:
