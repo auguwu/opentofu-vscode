@@ -412,7 +412,7 @@
         "@types/node": "22.15.19",
         "@types/vscode": "^1.80",
         "@types/which": "3.0.4",
-        "@vscode/vsce": "3.4.0",
+        "@vscode/vsce": "3.4.1",
         "esbuild": "0.25.4",
         "eslint": "9.27.0",
         "eslint-config-prettier": "10.1.5",
