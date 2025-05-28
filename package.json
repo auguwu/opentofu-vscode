@@ -409,7 +409,7 @@
         "@augu/eslint-config": "5.3.1",
         "@augu/tsconfig": "1.2.0",
         "@stylistic/eslint-plugin": "4.4.0",
-        "@types/node": "22.15.23",
+        "@types/node": "22.15.24",
         "@types/vscode": "^1.80",
         "@types/which": "3.0.4",
         "@vscode/vsce": "3.4.2",
