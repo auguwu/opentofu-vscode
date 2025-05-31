@@ -414,7 +414,7 @@
         "@types/which": "3.0.4",
         "@vscode/vsce": "3.4.2",
         "esbuild": "0.25.5",
-        "eslint": "9.27.0",
+        "eslint": "9.28.0",
         "eslint-config-prettier": "10.1.5",
         "eslint-formatter-codeframe": "7.32.1",
         "prettier": "3.5.3",
