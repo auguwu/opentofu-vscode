@@ -401,7 +401,7 @@
     },
     "dependencies": {
         "@noelware/utils": "2.5.1",
-        "reactive-vscode": "0.2.19",
+        "reactive-vscode": "0.2.20",
         "vscode-languageclient": "9.0.1",
         "which": "5.0.0"
     },
