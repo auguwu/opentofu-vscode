@@ -12,8 +12,8 @@ importers:
         specifier: 2.5.1
         version: 2.5.1
       reactive-vscode:
-        specifier: 0.2.22
-        version: 0.2.22(@types/vscode@1.101.0)
+        specifier: 0.3.0
+        version: 0.3.0(@types/vscode@1.101.0)
       vscode-languageclient:
         specifier: 9.0.1
         version: 9.0.1
@@ -411,8 +411,8 @@ packages:
     resolution: {integrity: sha512-3RFrmmzufX9/Ur0x8Qsf7wRbrVQmzb+2KfIvTdznk2xrwGqYwtMD2GmRTRQjV3wEz0O/q/JvVxn53OBYPEYaog==}
     engines: {node: '>=18'}
 
-  '@reactive-vscode/reactivity@0.2.22':
-    resolution: {integrity: sha512-+ltivl/R1c4vapZsRrejNQVyeQICayQ39wn0l/VjFqVcCs8ADVpNo4j53feMcM8oEbJv0StvVcODIyRFfqTGsg==}
+  '@reactive-vscode/reactivity@0.3.0':
+    resolution: {integrity: sha512-eV9JUTqOjNfYp/RjxBuZhjASxego+HiR0Ze2BxWmElTO4aVzlafrOpDF1gHelcypge8xMMzOl0oWM3015UJMcg==}
 
   '@secretlint/config-creator@9.3.4':
     resolution: {integrity: sha512-GRMYfHJ+rewwB26CC3USVObqSQ/mDLXzXcUMJw/wJisPr3HDZmdsYlcsNnaAcGN+EZmvqSDkgSibQm1hyZpzbg==}
@@ -1624,10 +1624,10 @@ packages:
     resolution: {integrity: sha512-y3bGgqKj3QBdxLbLkomlohkvsA8gdAiUQlSBJnBhfn+BPxg4bc62d8TcBW15wavDfgexCgccckhcZvywyQYPOw==}
     hasBin: true
 
-  reactive-vscode@0.2.22:
-    resolution: {integrity: sha512-bJq3AkoKt157CIw5Bz8Jp71dhSEG4M6O1Txjx5BLj97O+D1lQ7XghOGGngFWLTnWX4BwXxzYV7MvQmzNLqPuOg==}
+  reactive-vscode@0.3.0:
+    resolution: {integrity: sha512-wV39vjfWl6ezJNwN3ZisskVVjFecDyEa8cCQOmyj2NdczywwAEfXdzTyt8iVlLGKTjaFN8+E/MmPXc2Uva6cgw==}
     peerDependencies:
-      '@types/vscode': ^1.99.1
+      '@types/vscode': ^1.101.0
 
   read-pkg@8.1.0:
     resolution: {integrity: sha512-PORM8AgzXeskHO/WEv312k9U03B8K9JSiWF/8N9sUuFjBa+9SF2u6K7VClzXwDXab51jCd8Nd36CNM+zR97ScQ==}
@@ -2287,7 +2287,7 @@ snapshots:
 
   '@noelware/utils@2.5.1': {}
 
-  '@reactive-vscode/reactivity@0.2.22': {}
+  '@reactive-vscode/reactivity@0.3.0': {}
 
   '@secretlint/config-creator@9.3.4':
     dependencies:
@@ -3680,9 +3680,9 @@ snapshots:
       strip-json-comments: 2.0.1
     optional: true
 
-  reactive-vscode@0.2.22(@types/vscode@1.101.0):
+  reactive-vscode@0.3.0(@types/vscode@1.101.0):
     dependencies:
-      '@reactive-vscode/reactivity': 0.2.22
+      '@reactive-vscode/reactivity': 0.3.0
       '@types/vscode': 1.101.0
 
   read-pkg@8.1.0:
