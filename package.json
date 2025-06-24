@@ -420,6 +420,6 @@
         "prettier": "3.6.0",
         "typescript": "5.8.3",
         "typescript-eslint": "8.35.0",
-        "vscode-ext-gen": "1.0.2"
+        "vscode-ext-gen": "1.1.0"
     }
 }

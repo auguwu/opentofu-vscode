@@ -64,8 +64,8 @@ importers:
         specifier: 8.35.0
         version: 8.35.0(eslint@9.29.0)(typescript@5.8.3)
       vscode-ext-gen:
-        specifier: 1.0.2
-        version: 1.0.2
+        specifier: 1.1.0
+        version: 1.1.0
 
 packages:
 
@@ -1864,8 +1864,8 @@ packages:
     resolution: {integrity: sha512-gjb0ARm9qlcBAonU4zPwkl9ecKkas+tC2CGwFfptTCWWIVTWY1YUbT2zZKsOAF1jR/tNxxyLwwG0cb42XlYcTg==}
     engines: {node: '>=4'}
 
-  vscode-ext-gen@1.0.2:
-    resolution: {integrity: sha512-CgKGhGvO4Zpz87v3LRmDLtM1FaMVilJCy7fwKzxvrRnhUPTBgj9zkjlPM8lcVAq5vm87v9V8HzVer9COtU5bNA==}
+  vscode-ext-gen@1.1.0:
+    resolution: {integrity: sha512-xJ239JqH1ID5B105oCCu9tcpzB1u+KjtjopHeHQX4Gf6Oca66nxd3NFvUl4A7E+kbJsBLK9qZjkEA01zGGG7Jg==}
     hasBin: true
 
   vscode-jsonrpc@8.2.0:
@@ -3868,7 +3868,7 @@ snapshots:
 
   version-range@4.14.0: {}
 
-  vscode-ext-gen@1.0.2:
+  vscode-ext-gen@1.1.0:
     dependencies:
       cac: 6.7.14
 
