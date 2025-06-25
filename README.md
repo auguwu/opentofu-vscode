@@ -1,3 +1,6 @@
+> [!WARNING]
+> This extension is no longer useful, please switch to the [official OpenTofu extension](https://marketplace.visualstudio.com/items?itemName=OpenTofu.vscode-opentofu).
+
 ### 🐻‍❄️🫖 [OpenTofu]: Visual Studio Code | Extension
 
 #### _Visual Studio Code extension for [OpenTofu]_
